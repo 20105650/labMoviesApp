@@ -30,9 +30,6 @@ export interface BaseMovie {
       name: string;
     }[];
   }
-  export interface MovieP extends BaseMovie {
-    
-  }
   export interface MovieImage {
     file_path: string;
     aspect_ratio?: number; //some props are optional...
@@ -42,3 +39,7 @@ export interface BaseMovie {
     vote_count?: number;
     width?: number;
   }
+  export interface ListedMovie extends BaseMovie {
+    genre_ids: number[];
+  }
+  export type FilterOption = "title" | "genre";
