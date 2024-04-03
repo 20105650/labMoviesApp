@@ -52,9 +52,9 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, []);
  
-  const handleChange = (e: SelectChangeEvent, type: FilterOption, value: string) => {
+   const handleChange = (e: SelectChangeEvent, type: FilterOption, value: string) => {
     e.preventDefault()
-    // Completed later
+    props.onUserInput(type, value)
   };
 
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
