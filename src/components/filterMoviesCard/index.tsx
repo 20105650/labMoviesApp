@@ -29,6 +29,7 @@ const styles = {
 };
 
 interface FilterMoviesCardProps {
+  onUserInput: (f: FilterOption, s: string)  => void; // Add this line
   titleFilter: string;
   genreFilter: string;
 }
@@ -84,9 +85,11 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
         <FormControl sx={styles.formControl}>
           <InputLabel id="genre-label">Genre</InputLabel>
           <Select
-            labelId="genre-label"
-            id="genre-select"
-          >
+      labelId="genre-label"
+      id="genre-select"
+      value={props.genreFilter}
+      onChange={handleGenreChange}
+    >
             {genres.map((genre) => {
               return (
                 <MenuItem key={genre.id} value={genre.id}>
