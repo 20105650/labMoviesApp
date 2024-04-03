@@ -19,7 +19,7 @@ const styles = {
   },
 };
 
-  const MovieListPage: React.FC= () => {
+const MovieListPage: FC= () => {
     const [movies, setMovies] = useState([]);
     const [titleFilter, setTitleFilter] = useState("");
     const [genreFilter, setGenreFilter] = useState("0");
@@ -38,6 +38,12 @@ const styles = {
     const handleChange = (type: FilterOption, value: string) => {
       if (type === "title") setTitleFilter(value);
       else setGenreFilter(value);
+    };
+    const addToFavourites = (movieId: number) => {
+      const updatedMovies = movies.map((m: ListedMovie) =>
+        m.id === movieId ? { ...m, favourite: true } : m
+      );
+      setMovies(updatedMovies);
     };
 
     useEffect(() => {
@@ -62,7 +68,7 @@ const styles = {
           <Header title={"Home Page"} />
         </Grid>
         <Grid item container spacing={5}>
-          <MovieList movies={displayedMovies}></MovieList>
+        <MovieList movies={displayedMovies} selectFavourite={addToFavourites} />
         </Grid>
       </Grid>
       <Fab
