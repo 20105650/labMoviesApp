@@ -1,21 +1,24 @@
 import React, { useState } from "react";
-import { ListedMovie, MovieT } from "../types/interfaces";
+import { ListedMovie, MovieT,  Review } from "../types/interfaces";
 
 interface MovieContextInterface {
     favourites: number[];
     addToFavourites: ((movie: ListedMovie) => void);
     removeFromFavourites: ((movie: ListedMovie) => void);
+    addReview: ((movie: MovieT, review: Review) => void);
 }
 const initialContextState = {
     favourites: [],
     addToFavourites: (movie: ListedMovie) => {movie.id },
-    removeFromFavourites: (movie: ListedMovie) => { movie.id}
+    removeFromFavourites: (movie: ListedMovie) => { movie.id},
+    addReview: (movie, review) => { movie.id, review},
 };
 
 
-export const MoviesContext = React.createContext<MovieContextInterface>(initialContextState);;
+export const MoviesContext = React.createContext<MovieContextInterface>(initialContextState);
 
 const MoviesContextProvider: React.FC<React.PropsWithChildren> = (props) => {
+    const [myReviews, setMyReviews] = useState<Review[]>( [] )
     const [favourites, setFavourites] = useState<number[]>([]);
 
     const addToFavourites = (movie: ListedMovie) => {
@@ -26,10 +29,15 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = (props) => {
         setFavourites(updatedFavourites);
     };
 
+
     // We will use this function in a later section
     const removeFromFavourites = (movie: ListedMovie) => {
         setFavourites(favourites.filter((mId) => mId !== movie.id));
     };
+
+    const addReview = (movie: MovieT, review: Review) => {   // NEW
+        setMyReviews( {...myReviews, [movie.id]: review } )
+      };
 
     return (
         <MoviesContext.Provider
@@ -37,6 +45,7 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = (props) => {
                 favourites,
                 addToFavourites,
                 removeFromFavourites,
+                addReview, 
             }}
         >
             {props.children}
