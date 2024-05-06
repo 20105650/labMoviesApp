@@ -6,12 +6,14 @@ interface MovieContextInterface {
     addToFavourites: ((movie: ListedMovie) => void);
     removeFromFavourites: ((movie: ListedMovie) => void);
     addReview: ((movie: MovieT, review: Review) => void);
+    addToPlayList: ((movie: ListedMovie) => void);
 }
 const initialContextState = {
     favourites: [],
     addToFavourites: (movie: ListedMovie) => {movie.id },
     removeFromFavourites: (movie: ListedMovie) => { movie.id},
     addReview: (movie, review) => { movie.id, review},
+    addToPlayList: (movie: ListedMovie) => {movie.id },
 };
 
 
@@ -20,6 +22,7 @@ export const MoviesContext = React.createContext<MovieContextInterface>(initialC
 const MoviesContextProvider: React.FC<React.PropsWithChildren> = (props) => {
     const [myReviews, setMyReviews] = useState<Review[]>( [] )
     const [favourites, setFavourites] = useState<number[]>([]);
+    const [playlists, setPlaylists] = useState<number[]>([]);
 
     const addToFavourites = (movie: ListedMovie) => {
         let updatedFavourites = [...favourites];
@@ -28,6 +31,15 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = (props) => {
         }
         setFavourites(updatedFavourites);
     };
+
+    const addToPlayList =  (movie: ListedMovie) => {
+        let updatedPlaylists = [...playlists];
+        if (!playlists.includes(movie.id)) {
+            updatedPlaylists.push(movie.id);
+        }
+        setPlaylists(updatedPlaylists);
+    };
+
 
 
     // We will use this function in a later section
@@ -45,7 +57,8 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = (props) => {
                 favourites,
                 addToFavourites,
                 removeFromFavourites,
-                addReview, 
+                addReview,
+                addToPlayList,
             }}
         >
             {props.children}
