@@ -19,7 +19,7 @@ import { MoviesContext } from "../../contexts/moviesContext";
 import { ListedMovie } from "../../types/interfaces";
 
 const styles = {
-  card: { maxWidth: 345 },
+  card: { maxWidth: 445 },
   media: { height: 500 },
   avatar: {
     backgroundColor: "rgb(255, 0, 0)",
@@ -44,7 +44,7 @@ const MovieCard: React.FC<MovieListProps> = (props) => {
 
 
   return (
-    <Card sx={styles.card}>
+    <Card sx={styles.card} elevation={0} variant="outlined">
       <CardHeader
         avatar={
           movie.favourite ? (
