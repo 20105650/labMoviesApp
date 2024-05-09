@@ -21,9 +21,8 @@ import { ListedMovie } from "../../types/interfaces";
 const styles = {
   card: { maxWidth: 445 },
   media: { height: 500 },
-  avatar: {
-    backgroundColor: "rgb(255, 0, 0)",
-  },
+  avatar: { backgroundColor: "rgb(255, 0, 0)" },   // Change color as per your preference
+  title: { color: "#1976d2", fontWeight: 'bold', textTransform: "uppercase", fontSize:18 , height: 60 },
 };
 
 interface MovieCardProps extends BaseMovie {
@@ -54,7 +53,7 @@ const MovieCard: React.FC<MovieListProps> = (props) => {
           ) : null
         }
         title={
-          <Typography variant="h5" component="p">
+          <Typography variant="h6" component="p" sx={styles.title}>
             {movie.title}{" "}
           </Typography>
         }
@@ -71,14 +70,14 @@ const MovieCard: React.FC<MovieListProps> = (props) => {
         <Grid container>
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
-              <CalendarIcon fontSize="small" />
+              <CalendarIcon fontSize="small"  sx={{ mr : 0.5}}/>
               {movie.release_date}
             </Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
               <StarRateIcon fontSize="small" />
-              {"  "} {movie.vote_average}{" "}
+              {"  "} {movie.vote_average.toFixed(1)}{" "}
             </Typography>
           </Grid>
         </Grid>

@@ -18,6 +18,16 @@ export const getMovies = () => {
       .then(res => res.json())
       .then(json => json.results);
   };
+
+  export const getTrendingMovies = () => {
+    return fetch(
+      `https://api.themoviedb.org/3/trending/movie/day?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
+    )
+      .then(res => res.json())
+      .then(json => json.results);
+  };
+
+  
   
   export const getMovie = (id: string) => {
     return fetch(

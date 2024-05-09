@@ -37,7 +37,7 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = (props) => {
         if (!playlists.includes(movie.id)) {
             updatedPlaylists.push(movie.id);
         }
-        setPlaylists(updatedPlaylists);
+        setPlaylists(updatedPlaylists);  console.log(updatedPlaylists);
     };
 
 
