@@ -75,3 +75,58 @@ export interface BaseMovie {
     rating: number,
     movieId: number,
   }
+
+  export interface TVShow {
+    backdrop_path: string;
+    first_air_date: string;
+    id: number;
+    name: string;
+    origin_country: string[];
+    original_language: string;
+    original_name: string;
+    overview: string;
+    popularity: number;
+    poster_path: string;
+    vote_average: number;
+    vote_count: number;
+    favourite?: boolean;
+  }  
+  export interface TVShowList { 
+    tvshows: TVShow[];
+  } 
+  export interface TvshowListPageTemplateProps {
+    tvshows: TVShow[];
+    title: string;
+    action: (m: ListedTvshow) => React.ReactNode;
+  }
+  export interface TvshowT extends TVShow {
+    genres: {
+      id: number;
+      name: string;
+    },
+    production_countries: {
+      iso_3166_1: string;
+      name: string;
+    }[];
+  }
+  export interface TvshowImage {
+    file_path: string;
+    aspect_ratio?: number; //some props are optional...
+    height?: number;
+    iso_639_1?: string;
+    vote_average?: number;
+    vote_count?: number;
+    width?: number;
+  }
+  export interface ListedTvshow extends TVShow {
+    genre_ids: number[];
+
+  }
+
+
+  interface DiscoverTvShows {
+    page: number;	
+    total_pages: number;
+    total_results: number;
+    results: TVShow[];
+  }
