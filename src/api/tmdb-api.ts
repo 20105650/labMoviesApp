@@ -90,3 +90,41 @@ export const getMovies = () => {
         return json.results;
       });
   };
+
+  export const getTvshowReviews = (id: string | number) => {
+    return fetch(
+      `https://api.themoviedb.org/3/tv/${id}/reviews?api_key=${import.meta.env.VITE_TMDB_KEY}`
+    )
+      .then((res) => res.json())
+      .then((json) => {
+        // console.log(json.results);
+        return json.results;
+      });
+  };
+  export const getTvshowImages = (id: string | number) => {
+    return fetch(
+      `https://api.themoviedb.org/3/tv/${id}/images?api_key=${import.meta.env.VITE_TMDB_KEY}`
+    ).then((response) => {
+      if (!response.ok) {
+        throw new Error("failed to fetch images");
+      }
+      return response.json();
+    }).then((json) => json.posters)
+      .catch((error) => {
+        throw error
+      });
+  };
+
+  export const getTvshow = (id: string) => {
+    return fetch(
+      `https://api.themoviedb.org/3/tv/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}`
+    ).then((response) => {
+      if (!response.ok) {
+        throw new Error(`Failed to get movie data. Response status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      throw error
+   });
+  };

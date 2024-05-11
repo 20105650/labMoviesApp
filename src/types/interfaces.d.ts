@@ -87,6 +87,8 @@ export interface BaseMovie {
     overview: string;
     popularity: number;
     poster_path: string;
+    tagline: string;
+    episode_run_time: number;
     vote_average: number;
     vote_count: number;
     favourite?: boolean;
@@ -95,7 +97,7 @@ export interface BaseMovie {
     tvshows: TVShow[];
   } 
   export interface TvshowListPageTemplateProps {
-    tvshows: TVShow[];
+    tvshows: ListedTvshow[];
     title: string;
     action: (m: ListedTvshow) => React.ReactNode;
   }
@@ -122,8 +124,6 @@ export interface BaseMovie {
     genre_ids: number[];
 
   }
-
-
   interface DiscoverTvShows {
     page: number;	
     total_pages: number;
