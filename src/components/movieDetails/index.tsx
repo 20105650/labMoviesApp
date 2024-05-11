@@ -5,11 +5,20 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import MonetizationIcon from "@mui/icons-material/MonetizationOn";
 import StarRate from "@mui/icons-material/StarRate";
 import Typography from "@mui/material/Typography";
-import { MovieT } from "../../types/interfaces";
+//import { MovieT } from "../../types/interfaces";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from '../movieReviews'
+
+
+import Grid from "@mui/material/Grid";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+import { MovieImage, MovieT } from "../../types/interfaces";
+import { useQuery } from "react-query";
+import { getMovieImages } from "../../api/tmdb-api";
+import Spinner from '../spinner';
 
 const styles = {
     chipSet: {
@@ -29,11 +38,37 @@ const styles = {
       top: 50,
       right: 2,
     },
+    gridListRoot: {
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "space-around",
+    },
+    gridListTile: {
+        width: 200,
+        height: '30vh',
+        overflow: "hidden",
+    },
 };
 
 const MovieDetails: React.FC<MovieT> = (props) => {
   const movie=props;
   const [drawerOpen, setDrawerOpen] = useState(false); // New
+
+  const { data, error, isLoading, isError } = useQuery<MovieImage[], Error>(
+    ["images", movie.id],
+    () => getMovieImages(movie.id)
+    );
+    if (isLoading) {
+        return <Spinner />;
+    }
+
+    if (isError) {
+        return <h1>{(error
+
+        ).message}</h1>;
+    }
+
+    const images = data as MovieImage[];
 
     return (
         <>
@@ -67,6 +102,26 @@ const MovieDetails: React.FC<MovieT> = (props) => {
                 />
                 <Chip label={`Released: ${movie.release_date}`} />
             </Paper>
+
+            <Grid item >
+                    <div>
+                        <ImageList cols={4}>
+                            {images.map((image: MovieImage) => (
+                                <ImageListItem
+                                    key={image.file_path}
+                                    sx={styles.gridListTile}
+                                    cols={1}
+                                >
+                                    <img
+                                        src={`https://image.tmdb.org/t/p/w500/${image.file_path}`}
+                                        alt={'Image alternative'}
+                                    />
+                                </ImageListItem>
+                            ))}
+                        </ImageList>
+                    </div>
+            </Grid>
+
             <Fab    
         color="secondary"
         variant="extended"
