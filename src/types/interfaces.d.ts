@@ -130,3 +130,39 @@ export interface BaseMovie {
     total_results: number;
     results: TVShow[];
   }
+  interface Actor {
+    adult: boolean;
+    backdrop_path: string | null;
+    id: number;
+    gender: number;
+    media_type: string;
+    original_language: string;
+    original_title: string;
+    overview: string;
+    profile_path: string | null;
+    release_date: string;
+    name: string;
+    video: boolean;
+    vote_average: number;
+    vote_count: number;
+    favourite?: boolean;
+  }
+
+  export interface ListedActor extends Actor {
+    genre_ids: number[];
+
+  }
+  export interface ActorList { 
+    actors: Actor[];
+  } 
+  export interface ActorListPageTemplateProps {
+    actors: ListedActor[];
+    title: string;
+    action: (m: ListedActor) => React.ReactNode;
+  }
+  interface DiscoverActors {
+    page: number;	
+    total_pages: number;
+    total_results: number;
+    results: Actor[];
+  }
