@@ -1,18 +1,14 @@
-import React, {MouseEvent} from "react";
+import React from "react";
 import  { useContext  } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import CardHeader from "@mui/material/CardHeader";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import Grid from "@mui/material/Grid";
 import img from '../../images/film-poster-placeholder.png';
-import { Actor } from "../../types/interfaces"; 
 import { Link } from "react-router-dom";
-import Avatar from "@mui/material/Avatar";
 import { ActorsContext } from "../../contexts/actorsContext";
 import { ListedActor } from "../../types/interfaces";
 
@@ -23,9 +19,6 @@ const styles = {
   title: { color: "#1976d2", fontWeight: 'bold', textTransform: "uppercase", fontSize:18  },
 };
 
-interface ActorCardProps extends Actor {
-  selectFavourite: (actorId: number) => void;
-} 
 
 interface ActorListProps {
   actor:ListedActor,
@@ -33,7 +26,7 @@ interface ActorListProps {
 }
 const ActorCard: React.FC<ActorListProps> = (props) => {
   const actor = {...props.actor, favourite: false};
-  const { favourites, addToFavourites } = useContext(ActorsContext);
+  const { favourites } = useContext(ActorsContext);
   
   if (favourites.find((id) => id === actor.id)) 
     actor.favourite = true;

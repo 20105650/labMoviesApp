@@ -15,6 +15,7 @@ export interface BaseMovie {
     revenue: number;
     vote_count: number;
     favourite?: boolean;
+    playlists?: unknown;
   }
 
   export interface BaseMovieList { 
@@ -24,7 +25,7 @@ export interface BaseMovie {
     genres: {
       id: number;
       name: string;
-    },
+    }[],
     production_countries: {
       iso_3166_1: string;
       name: string;
@@ -48,7 +49,7 @@ export interface BaseMovie {
   export interface MovieListPageTemplateProps {
     movies: ListedMovie[];
     title: string;
-    action: (m: ListedMovie) => React.ReactNode;
+    action: (m: ListedMovie) => ReactNode;
   }
   export interface Review{
     id: string;
@@ -99,13 +100,13 @@ export interface BaseMovie {
   export interface TvshowListPageTemplateProps {
     tvshows: ListedTvshow[];
     title: string;
-    action: (m: ListedTvshow) => React.ReactNode;
+    action: (m: ListedTvshow) => ReactNode;
   }
   export interface TvshowT extends TVShow {
     genres: {
       id: number;
       name: string;
-    },
+    }[],
     production_countries: {
       iso_3166_1: string;
       name: string;
@@ -138,12 +139,13 @@ export interface BaseMovie {
     media_type: string;
     original_language: string;
     original_title: string;
-    overview: string;
+    biography: string;
     profile_path: string | null;
-    release_date: string;
+    birthday: string;
+    place_of_birth: string;
     name: string;
     video: boolean;
-    vote_average: number;
+    popularity: number;
     vote_count: number;
     favourite?: boolean;
   }
@@ -158,7 +160,7 @@ export interface BaseMovie {
   export interface ActorListPageTemplateProps {
     actors: ListedActor[];
     title: string;
-    action: (m: ListedActor) => React.ReactNode;
+    action: (m: ListedActor) => ReactNode;
   }
   interface DiscoverActors {
     page: number;	
@@ -166,3 +168,33 @@ export interface BaseMovie {
     total_results: number;
     results: Actor[];
   }
+  export interface ActorImage {
+    file_path: string;
+    aspect_ratio?: number; //some props are optional...
+    height?: number;
+    iso_639_1?: string;
+    vote_average?: number;
+    vote_count?: number;
+    width?: number;
+  }
+
+  export interface KnownFor {
+    adult: boolean;
+    backdrop_path: string | null;
+    id: number;
+    original_language: string;
+    original_title: string;
+    overview: string;
+    popularity: number;
+    poster_path: string | null;
+    release_date: string;
+    title: string;
+    video: boolean;
+    vote_average: number;
+    vote_count: number;
+    character: string;
+    credit_id: string;
+    order: number;
+    media_type: string;
+  }
+  

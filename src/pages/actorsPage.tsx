@@ -8,16 +8,7 @@ import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavouritesActor'
 
-const styles = {
-    root: {
-      padding: "20px",
-    }, fab: {
-      marginTop: 8,
-      position: "fixed",
-      top: 2,
-      right: 2,
-    },
-  };
+
   
   const titleFiltering = {
     name: "title",
@@ -61,8 +52,7 @@ const styles = {
         // Redundant, but necessary to avoid app crashing.
         const favourites = actors.filter(m => m.favourite)
         localStorage.setItem("favourites", JSON.stringify(favourites));
-        const addToFavourites = (actorId: number) => true;
-  
+        
   
       return (
         <>

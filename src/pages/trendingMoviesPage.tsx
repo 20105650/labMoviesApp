@@ -11,17 +11,6 @@ import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToPlayListIcon from '../components/cardIcons/AddToPlayListIcon';
 
- 
-const styles = {
-  root: {
-    padding: "20px",
-  }, fab: {
-    marginTop: 8,
-    position: "fixed",
-    top: 2,
-    right: 2,
-  },
-};
 
 const titleFiltering = {
   name: "title",
@@ -63,9 +52,10 @@ const genreFiltering = {
       const displayedMovies = filterFunction(movies);
 
       // Redundant, but necessary to avoid app crashing.
-      const playlists = movies.filter(m => m.playlists)
-      localStorage.setItem("playlists", JSON.stringify(playlists));
-      const addToPlayList= (movieId: number) => true;
+     // const playlists = movies.filter((m: ListedMovie) => m.playlists)
+    // const playlists = Array.isArray(movies) ? movies.filter((m: ListedMovie) => m.playlists) : [];
+      //localStorage.setItem("playlists", JSON.stringify(playlists));
+      //const addToPlayList= (movieId: number) => true;
 
 
     return (

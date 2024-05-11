@@ -12,7 +12,7 @@ const initialContextState = {
     favourites: [],
     addToFavourites: (movie: ListedMovie) => {movie.id },
     removeFromFavourites: (movie: ListedMovie) => { movie.id},
-    addReview: (movie, review) => { movie.id, review},
+    addReview: (movie: MovieT, review: Review) => { movie.id, review},
     addToPlayList: (movie: ListedMovie) => {movie.id },
 };
 

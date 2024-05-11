@@ -11,7 +11,7 @@ const useFiltering = (data: any[], filters: Filter[]) => {
     const filterInitialValues = filters.map((f) => ({
       name: f.name,
       value: f.value,
-    }));
+    })); console.log(data);
     return filterInitialValues;
   });
 

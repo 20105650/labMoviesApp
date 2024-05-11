@@ -1,8 +1,8 @@
 import React from "react";
-import TvshowHeader from "../headerTvshow";
+import ActorHeader from "../headerActor";
 import Grid from "@mui/material/Grid";
 import ImageList from "@mui/material/ImageList";
-import { TvshowT } from "../../types/interfaces";
+import { Actor } from "../../types/interfaces";
 
 const styles = { 
     imageContainer: {
@@ -10,25 +10,25 @@ const styles = {
     },
 };
 
-interface TemplateTvshowPageProps {
-    tvshow: TvshowT;
+interface TemplateActorPageProps {
+    actor: Actor;
     children: React.ReactElement;
 }
 
 
-const TemplateTvshowPage: React.FC<TemplateTvshowPageProps> = (props) => {
+const TemplateActorPage: React.FC<TemplateActorPageProps> = (props) => {
     
-    const { tvshow, children } = props;
+    const { actor, children } = props;
 
     return (
         <>
-            <TvshowHeader {...tvshow} />
+            <ActorHeader {...actor} />
 
             <Grid container spacing={5} style={{ padding: "15px" }}>
                 <Grid item xs={4}>
                     <ImageList cols={1}>
                     <div  style={styles.imageContainer}>
-                        <img src={`https://image.tmdb.org/t/p/w500/${tvshow.poster_path}`} alt={'Image alternative'} />
+                        <img src={`https://image.tmdb.org/t/p/w500/${actor.profile_path}`} alt={'Image alternative'} />
                     </div>
                     </ImageList>
                 </Grid>
@@ -41,4 +41,4 @@ const TemplateTvshowPage: React.FC<TemplateTvshowPageProps> = (props) => {
     );
 };
 
-export default TemplateTvshowPage;
+export default TemplateActorPage;

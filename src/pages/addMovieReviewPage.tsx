@@ -10,6 +10,7 @@ import { MovieT } from "../types/interfaces";
 const WriteReviewPage: React.FC = (props) => {
     const location = useLocation()
     const { movieId } = location.state;
+    console.log(props);
     const { data: movie, error, isLoading, isError } = useQuery<MovieT, Error>(
         ["movie", movieId],
         () => getMovie(movieId)

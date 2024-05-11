@@ -2,7 +2,7 @@ import { FC, useState, useEffect } from 'react';
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 //import HomeIcon from "@mui/icons-material/Home";
-import { TvshowT } from "../../types/interfaces"; 
+import { Actor } from "../../types/interfaces"; 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Avatar from "@mui/material/Avatar";
 
@@ -19,15 +19,15 @@ const styles = {
   },
 };
 
-const TvshowHeader: FC<TvshowT> = (props) => {
+const ActorHeader: FC<Actor> = (props) => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   useEffect(() => {
     // Retrieve movies from localStorage
-    const tvshows = JSON.parse(localStorage.getItem("favourites") || '[]');
+    const actors = JSON.parse(localStorage.getItem("favourites") || '[]');
 
     // Check if the movie with the given id exists in favorites
-    const favorite = tvshows.find((tvshow: any) => tvshow.id === props.id);
+    const favorite = actors.find((actor: any) => actor.id === props.id);
     
     // Update isFavorite state based on whether the movie is in favorites
     setIsFavorite(!!favorite);
@@ -43,12 +43,10 @@ const TvshowHeader: FC<TvshowT> = (props) => {
       </Avatar>
       )}
         {props.name}{"   "}
-    
-        <span>{`${props.tagline}`} </span>
       </Typography>
     
     </Paper>
   );
 };
 
-export default TvshowHeader;
+export default ActorHeader;

@@ -1,4 +1,4 @@
-import React, {MouseEvent} from "react";
+import React from "react";
 import  { useContext  } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -12,7 +12,6 @@ import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import Grid from "@mui/material/Grid";
 import img from '../../images/film-poster-placeholder.png';
-import { TVShow } from "../../types/interfaces"; 
 import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import { TvShowsContext } from "../../contexts/tvshowsContext";
@@ -25,9 +24,9 @@ const styles = {
   title: { color: "#1976d2", fontWeight: 'bold', textTransform: "uppercase", fontSize:18 , height: 60 },
 };
 
-interface TvshowCardProps extends TVShow {
-  selectFavourite: (tvshowId: number) => void;
-} 
+//interface TvshowCardProps extends TVShow {
+ // selectFavourite: (tvshowId: number) => void;
+//} 
 
 interface TvshowListProps {
     tvshow: ListedTvshow,
@@ -35,7 +34,7 @@ interface TvshowListProps {
 }
 const TvshowCard: React.FC<TvshowListProps> = (props) => {
   const tvshow = {...props.tvshow, favourite: false};
-  const { favourites, addToFavourites } = useContext(TvShowsContext);
+  const { favourites } = useContext(TvShowsContext);
   
   if (favourites.find((id) => id === tvshow.id)) 
     tvshow.favourite = true;
