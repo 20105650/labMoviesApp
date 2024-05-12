@@ -7,6 +7,7 @@ import { DiscoverActors,ListedActor } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavouritesActor'
+import Pagination from "../components/Pagination";
 
 
   
@@ -67,6 +68,11 @@ import AddToFavouritesIcon from '../components/cardIcons/addToFavouritesActor'
           titleFilter={filterValues[0].value}
          
         />
+        <Pagination
+        currentPage={currentPage}
+        totalPages={data?.total_pages || 1}
+        onPageChange={setCurrentPage}
+      />
         </>
     );
   };

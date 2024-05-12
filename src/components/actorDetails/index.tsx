@@ -16,6 +16,8 @@ import { Actor } from "../../types/interfaces";
 import { useQuery } from "react-query";
 import { getKnownfor } from "../../api/tmdb-api";
 import Spinner from "../spinner";
+import img from '../../images/film-poster-placeholder.png';
+import CardMedia from "@mui/material/CardMedia";
 
 interface KnownForItem {
   id: number;
@@ -51,7 +53,8 @@ const ActorDetails: React.FC<Actor> = (props) => {
     },
     imageContainer: {
       overflow: "hidden", // Hide the scrollbar
-  },
+    },
+    media: { height: 300 },
   };
 
   const {
@@ -299,7 +302,15 @@ const ActorDetails: React.FC<Actor> = (props) => {
                     cols={1}
                   >
                    <Link to={`/movies/${image.id}`}> 
-                   <img src={`https://image.tmdb.org/t/p/w500/${image.poster_path}`} alt={image.title}/> 
+                   <CardMedia
+                    sx={styles.media}
+                    image={
+                        image.poster_path
+                        ? `https://image.tmdb.org/t/p/w500/${image.poster_path}`
+                        : img
+                    }
+                    />
+                   
                    <p>{image.title}</p>
                    </Link>
                   </ImageListItem>

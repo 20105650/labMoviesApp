@@ -20,7 +20,7 @@ const styles = {
     padding: "10px 20px",
     margin: "0 5px",
     border: "none",
-    backgroundColor: "purple", // Change background color to blue
+    backgroundColor: "#1976d2", // Change background color to blue
     color: "white", // Change text color to purple
     cursor: "pointer",
     borderRadius: "5px",
@@ -29,7 +29,7 @@ const styles = {
       backgroundColor: "#0056b3",
     },
     "&:disabled": {
-      backgroundColor: "#ced4da",
+      backgroundColor: "#1976d2",
       color: "#6c757d",
       cursor: "not-allowed",
     },
@@ -38,9 +38,8 @@ const styles = {
     margin: "0 10px",
     fontSize: "16px",
     fontWeight: "bold",
-    fontStyle: "italic",
     // Change background color to blue
-    color: "blue", // Change text color to white
+    color: "#1976d2", // Change text color to white
     padding: "5px", // Add padding to enhance readability
     borderRadius: "5px", // Add border-radius for rounded corners
   },

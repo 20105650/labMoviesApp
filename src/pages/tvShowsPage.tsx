@@ -7,6 +7,7 @@ import { DiscoverTvShows,ListedTvshow } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavouritesTvShow';
+import Pagination from "../components/Pagination";
   
   const titleFiltering = {
     name: "title",
@@ -80,6 +81,11 @@ import AddToFavouritesIcon from '../components/cardIcons/addToFavouritesTvShow';
           genreFilter={filterValues[1].value}
           ratingFilter={filterValues[2].value}
         />
+        <Pagination
+        currentPage={currentPage}
+        totalPages={data?.total_pages || 1}
+        onPageChange={setCurrentPage}
+      />
         </>
     );
   };
