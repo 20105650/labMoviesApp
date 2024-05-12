@@ -2,7 +2,7 @@ import React from "react";
 import PageTemplate from '../components/templateActorsListPage';
 import { getActors} from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
-import ActorFilterUI, { titleFilter,  genreFilter,} from '../components/actorFilterUI';
+import ActorFilterUI, { titleFilter} from '../components/actorFilterUI';
 import { DiscoverActors,ListedActor } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
@@ -15,18 +15,14 @@ import AddToFavouritesIcon from '../components/cardIcons/addToFavouritesActor'
     value: "",
     condition: titleFilter,
   };
-  const  genreFiltering = {
-    name: "genre",
-    value: "0",
-    condition: genreFilter,
-  };
+
   
     //const TrendingMoviesPage: React.FC = () => {
     const ActorsPage: React.FC = () => {
         const { data, error, isLoading, isError } = useQuery<DiscoverActors, Error>("actors", getActors);
         const { filterValues, setFilterValues, filterFunction } = useFiltering(
           [],
-          [titleFiltering, genreFiltering]
+          [titleFiltering]
         );
       
         if (isLoading) {
@@ -39,10 +35,7 @@ import AddToFavouritesIcon from '../components/cardIcons/addToFavouritesActor'
   
         const changeFilterValues = (type: string, value: string) => {
           const changedFilter = { name: type, value: value };
-          const updatedFilterSet =
-            type === "title"
-              ? [changedFilter, filterValues[1]]
-              : [filterValues[0], changedFilter];
+          const updatedFilterSet = [changedFilter];
           setFilterValues(updatedFilterSet);
         };
   
@@ -66,7 +59,7 @@ import AddToFavouritesIcon from '../components/cardIcons/addToFavouritesActor'
       <ActorFilterUI
           onFilterValuesChange={changeFilterValues}
           titleFilter={filterValues[0].value}
-          genreFilter={filterValues[1].value}
+         
         />
         </>
     );

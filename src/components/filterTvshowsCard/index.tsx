@@ -6,11 +6,10 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import SortIcon from "@mui/icons-material/Sort";
 
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { getGenres } from "../../api/tmdb-api";
+import { getTvGenres } from "../../api/tmdb-api";
 
 import { FilterOption, GenreData } from "../../types/interfaces";
 import { Box, SelectChangeEvent } from "@mui/material";
@@ -55,15 +54,13 @@ interface FilterMoviesCardProps {
   titleFilter: string;
   genreFilter: string;
   ratingFilter: string;
-  popularityFilter: string;
 }
 
 const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
   const [rating, setRating] = useState("0");
-  const [popularity, setPopularity] = useState("100");
   const { data, error, isLoading, isError } = useQuery<GenreData, Error>(
     "genres",
-    getGenres
+    getTvGenres
   );
 
   if (isLoading) {
@@ -94,10 +91,6 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
     handleChange(e, "genre", e.target.value);
   };
 
-  const handleSortChange = (e: SelectChangeEvent) => {
-    handleChange(e, "sort_by", e.target.value);
-  };
-
   const handleRateChange = (
     _event: Event,
     newValue: number | number[]
@@ -108,15 +101,7 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
     props.onUserInput("rating", newRate);
   };
 
-  const handlePopularityChange = (
-    _event: Event,
-    newValue: number | number[]
-  ) => {
-    const newPopularity =
-      typeof newValue === "number" ? newValue.toString() : newValue[0].toString();
-    setPopularity(newPopularity);
-    props.onUserInput("popularity", newPopularity);
-  };
+  
 
   return (
     <>
@@ -176,63 +161,10 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
           }}
           />
 
-        <Typography id="popularity-slider" gutterBottom sx={styles.slider}>
-          Popularity Filter
-        </Typography>
-        <Slider
-          value={parseFloat(popularity)}
-          onChange={handlePopularityChange}
-          aria-labelledby="popularity-slider"
-          step={100}
-          min={0}
-          max={5000}
-          marks
-          valueLabelDisplay="auto"
-          sx={{
-            color: "blue",
-          }}
-          />
+        
         </CardContent>
       </Card>
-      <Card sx={styles.root} variant="outlined">
-        <CardContent>
-          <Typography variant="h5" component="h1">
-            <Box display="flex" alignItems="flex-end">
-              <SortIcon fontSize="large" sx={{ paddingRight: 1 }} />
-              <Box component="span">Sort the movies</Box>
-            </Box>
-          </Typography>
-
-          <FormControl sx={styles.formControl}>
-          <Typography variant="h5" component="h1" sx={styles.title}>
-            <InputLabel id="genre-label" sx={{ fontWeight : 600, font:24, marginTop:5 }}>SORT MOVIE</InputLabel>
-            </Typography>
-          
-            <Select
-              labelId="sort-label"
-              id="sort-select"
-              onChange={handleSortChange}
-            >
-              <MenuItem value="">None</MenuItem>
-              <MenuItem value="original_title.asc">Original Title (A-Z)</MenuItem>
-              <MenuItem value="original_title.desc">Original Title (Z-A)</MenuItem>
-              <MenuItem value="popularity.asc">Popularity (Low to High)</MenuItem>
-              <MenuItem value="popularity.desc">Popularity (High to Low)</MenuItem>
-              <MenuItem value="revenue.asc">Revenue (Low to High)</MenuItem>
-              <MenuItem value="revenue.desc">Revenue (High to Low)</MenuItem>
-              <MenuItem value="primary_release_date.asc">Release Date (Old to New)</MenuItem>
-              <MenuItem value="title.asc">Title (A-Z)</MenuItem>
-              <MenuItem value="title.desc">Title (Z-A)</MenuItem>
-              <MenuItem value="primary_release_date.desc">Release Date (New to Old)</MenuItem>
-              <MenuItem value="vote_average.asc">Vote Average (Low to High)</MenuItem>
-              <MenuItem value="vote_average.desc">Vote Average (High to Low)</MenuItem>
-              <MenuItem value="vote_count.asc">Vote Count (Low to High)</MenuItem>
-              <MenuItem value="vote_count.desc">Vote Count (High to Low)</MenuItem>
-            </Select>
-            
-          </FormControl>
-        </CardContent>
-      </Card>
+      
     </>
   );
 };

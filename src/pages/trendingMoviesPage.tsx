@@ -71,6 +71,8 @@ const genreFiltering = {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+        ratingFilter={filterValues[2].value}
+        popularityFilter={filterValues[3].value}
       />
       </>
   );

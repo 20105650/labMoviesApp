@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import FilterCard from "../filterMoviesCard";
+import FilterCard from "../filterTvshowsCard";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import { ListedTvshow } from "../../types/interfaces";
@@ -11,6 +11,10 @@ export const titleFilter = function (tvshow: ListedTvshow, value: string) {
 export const genreFilter = function (tvshow: ListedTvshow, value: string) {
   const genreId = Number(value);
   return genreId > 0 ? tvshow.genre_ids.includes(genreId) : true;
+};
+export const ratingFilter = function (tvshow: ListedTvshow, value: string) {
+  const minRating = parseFloat(value);
+  return minRating ? tvshow.vote_average >= minRating : true;
 };
 
 const styles = {
@@ -29,10 +33,11 @@ interface TvshowFilterUIProps {
   onFilterValuesChange: (f: string, s: string) => void;
   titleFilter: string;
   genreFilter: string;
+  ratingFilter: string;
 }
 
 
-const TvshowFilterUI: React.FC<TvshowFilterUIProps> = ({ onFilterValuesChange, titleFilter, genreFilter }) => {
+const TvshowFilterUI: React.FC<TvshowFilterUIProps> = ({ onFilterValuesChange, titleFilter, genreFilter,ratingFilter }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
@@ -54,6 +59,7 @@ const TvshowFilterUI: React.FC<TvshowFilterUIProps> = ({ onFilterValuesChange, t
           onUserInput={onFilterValuesChange}
           titleFilter={titleFilter}
           genreFilter={genreFilter}
+          ratingFilter={ratingFilter}
         />
       </Drawer>
     </>

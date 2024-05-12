@@ -44,7 +44,7 @@ export interface BaseMovie {
     genre_ids: number[];
 
   }
-  export type FilterOption = "title" | "genre";
+  export type FilterOption = "title" | "genre" | "sort_by" | "rating" | "popularity";
 
   export interface MovieListPageTemplateProps {
     movies: ListedMovie[];
@@ -147,6 +147,7 @@ export interface BaseMovie {
     video: boolean;
     popularity: number;
     vote_count: number;
+    vote_average:number
     favourite?: boolean;
     known_for_department: string;
     imdb_id: string;

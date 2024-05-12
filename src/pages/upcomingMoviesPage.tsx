@@ -6,6 +6,8 @@ import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
   titleFilter,
   genreFilter,
+  ratingFilter,
+  popularityFilter,
 } from "../components/movieFilterUI";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
@@ -21,13 +23,23 @@ const genreFiltering = {
   value: "0",
   condition: genreFilter,
 };
+const ratingFiltering = {
+  name: "rating",
+  value: "0",
+  condition: ratingFilter,
+};
+const popularityFiltering = {
+  name: "popularity",
+  value: "0",
+  condition: popularityFilter,
+};
 
   //const UpcomingMoviesPage: React.FC = () => {
   const UpcomingMoviesPage: React.FC = () => {
       const { data, error, isLoading, isError } = useQuery<ListedMovie, Error>("upcoming", getUpcomingMovies);
       const { filterValues, setFilterValues, filterFunction } = useFiltering(
         [],
-        [titleFiltering, genreFiltering]
+        [titleFiltering, genreFiltering, ratingFiltering, popularityFiltering]
       );
     
       if (isLoading) {
@@ -41,9 +53,13 @@ const genreFiltering = {
       const changeFilterValues = (type: string, value: string) => {
         const changedFilter = { name: type, value: value };
         const updatedFilterSet =
-          type === "title"
-            ? [changedFilter, filterValues[1]]
-            : [filterValues[0], changedFilter];
+        type === "title"
+        ? [changedFilter, filterValues[1], filterValues[2], filterValues[3]]
+        : type === "genre"
+        ? [filterValues[0], changedFilter, filterValues[2], filterValues[3]]
+        : type === "rating"
+        ? [filterValues[0], filterValues[1],changedFilter, filterValues[3] ] 
+        :[filterValues[0], filterValues[1], filterValues[2],changedFilter ];
         setFilterValues(updatedFilterSet);
       };
 
@@ -69,6 +85,8 @@ const genreFiltering = {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+        ratingFilter={filterValues[2].value}
+        popularityFilter={filterValues[3].value}
       />
       </>
   );

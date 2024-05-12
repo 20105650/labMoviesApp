@@ -2,7 +2,7 @@ import React from "react";
 import PageTemplate from '../components/templateTVShowsListPage';
 import { getTvShows} from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
-import TvshowFilterUI, { titleFilter,  genreFilter,} from "../components/tvshowFilterUI";
+import TvshowFilterUI, { titleFilter,  genreFilter,ratingFilter} from "../components/tvshowFilterUI";
 import { DiscoverTvShows,ListedTvshow } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
@@ -18,13 +18,17 @@ import AddToFavouritesIcon from '../components/cardIcons/addToFavouritesTvShow';
     value: "0",
     condition: genreFilter,
   };
-  
+  const ratingFiltering = {
+    name: "rating",
+    value: "0",
+    condition: ratingFilter,
+  };
     //const TrendingMoviesPage: React.FC = () => {
     const TvShowsPage: React.FC = () => {
         const { data, error, isLoading, isError } = useQuery<DiscoverTvShows, Error>("tvshows", getTvShows);
         const { filterValues, setFilterValues, filterFunction } = useFiltering(
           [],
-          [titleFiltering, genreFiltering]
+          [titleFiltering, genreFiltering,ratingFiltering]
         );
       
         if (isLoading) {
@@ -39,8 +43,10 @@ import AddToFavouritesIcon from '../components/cardIcons/addToFavouritesTvShow';
           const changedFilter = { name: type, value: value };
           const updatedFilterSet =
             type === "title"
-              ? [changedFilter, filterValues[1]]
-              : [filterValues[0], changedFilter];
+              ? [changedFilter, filterValues[1],filterValues[2]]
+              : type === "genre"
+              ? [filterValues[0], changedFilter,filterValues[2]]
+              : [filterValues[0],filterValues[1],changedFilter];
           setFilterValues(updatedFilterSet);
         };
   
@@ -66,6 +72,7 @@ import AddToFavouritesIcon from '../components/cardIcons/addToFavouritesTvShow';
           onFilterValuesChange={changeFilterValues}
           titleFilter={filterValues[0].value}
           genreFilter={filterValues[1].value}
+          ratingFilter={filterValues[2].value}
         />
         </>
     );

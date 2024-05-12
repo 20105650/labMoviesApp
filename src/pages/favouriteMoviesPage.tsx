@@ -6,7 +6,9 @@ import { getMovie } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
-  titleFilter
+  titleFilter,
+  ratingFilter,
+  popularityFilter,
 } from "../components/movieFilterUI";
 import { MovieT } from "../types/interfaces";
 import RemoveFromFavourites from "../components/cardIcons/removeFromFavourites";
@@ -16,6 +18,16 @@ const titleFiltering = {
   name: "title",
   value: "",
   condition: titleFilter,
+};
+const ratingFiltering = {
+  name: "rating",
+  value: "0",
+  condition: ratingFilter,
+};
+const popularityFiltering = {
+  name: "popularity",
+  value: "0",
+  condition: popularityFilter,
 };
 
 export const genreFiltering = {
@@ -34,7 +46,7 @@ const FavouriteMoviesPage: React.FC = () => {
   const { favourites: movieIds } = useContext(MoviesContext);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
-    [titleFiltering, genreFiltering]
+    [titleFiltering, genreFiltering, ratingFiltering, popularityFiltering]
   );
 
   // Create an array of queries and run them in parallel.
@@ -62,7 +74,13 @@ const FavouriteMoviesPage: React.FC = () => {
   const changeFilterValues = (type: string, value: string) => {
     const changedFilter = { name: type, value: value };
     const updatedFilterSet =
-      type === "title" ? [changedFilter, filterValues[1]] : [filterValues[0], changedFilter];
+    type === "title"
+    ? [changedFilter, filterValues[1], filterValues[2], filterValues[3]]
+    : type === "genre"
+    ? [filterValues[0], changedFilter, filterValues[2], filterValues[3]]
+    : type === "rating"
+    ? [filterValues[0], filterValues[1],changedFilter, filterValues[3] ] 
+    :[filterValues[0], filterValues[1], filterValues[2],changedFilter ];
     setFilterValues(updatedFilterSet);
   };
 
@@ -84,6 +102,8 @@ const FavouriteMoviesPage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+        ratingFilter={filterValues[2].value}
+        popularityFilter={filterValues[3].value}
       />
     </>
   );

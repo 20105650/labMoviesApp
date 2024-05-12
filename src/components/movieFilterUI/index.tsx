@@ -13,6 +13,21 @@ export const genreFilter = function (movie: ListedMovie, value: string) {
   return genreId > 0 ? movie.genre_ids.includes(genreId) : true;
 };
 
+//export const sortFilter = function (movie: ListedMovie, value: string) {
+ // const sortType = value; console.log(value);
+  //return sortType != "" ? movie.sort_by.includes(sortType) : true;
+//};
+// Rating filter function
+export const ratingFilter = function (movie: ListedMovie, value: string) {
+  const minRating = parseFloat(value);
+  return minRating ? movie.vote_average >= minRating : true;
+};
+
+export const popularityFilter = function (movie: ListedMovie, value: string) {
+  const minpopularity = parseFloat(value);
+  return minpopularity ? movie.popularity >= minpopularity : true;
+};
+
 const styles = {
   root: {
     backgroundColor: "#bfbfbf",
@@ -29,10 +44,12 @@ interface MovieFilterUIProps {
   onFilterValuesChange: (f: string, s: string) => void;
   titleFilter: string;
   genreFilter: string;
+  ratingFilter: string;
+  popularityFilter: string;
 }
 
 
-const MovieFilterUI: React.FC<MovieFilterUIProps> = ({ onFilterValuesChange, titleFilter, genreFilter }) => {
+const MovieFilterUI: React.FC<MovieFilterUIProps> = ({ onFilterValuesChange, titleFilter, genreFilter,ratingFilter,popularityFilter }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
@@ -54,6 +71,9 @@ const MovieFilterUI: React.FC<MovieFilterUIProps> = ({ onFilterValuesChange, tit
           onUserInput={onFilterValuesChange}
           titleFilter={titleFilter}
           genreFilter={genreFilter}
+         // sortFilter={sortFilter}
+          ratingFilter={ratingFilter}
+          popularityFilter={popularityFilter}
         />
       </Drawer>
     </>
