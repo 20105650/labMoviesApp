@@ -1,4 +1,4 @@
-import React from "react"; 
+import React, { useState }  from "react"; 
 import PageTemplate from '../components/templateMovieListPage';
 import { ListedMovie } from "../types/interfaces";
 import { getTrendingMovies } from "../api/tmdb-api";
@@ -25,7 +25,13 @@ const genreFiltering = {
 
   //const TrendingMoviesPage: React.FC = () => {
   const TrendingMoviesPage: React.FC = () => {
-      const { data, error, isLoading, isError } = useQuery<ListedMovie, Error>("trending", getTrendingMovies);
+      const [currentPage, setCurrentPage] = useState(1); console.log(setCurrentPage);
+      const { data, error, isLoading, isError } = useQuery<ListedMovie, Error>(["discover", currentPage],
+      () => getTrendingMovies(currentPage),
+      {
+        keepPreviousData: true, // Keep previous data while loading new data
+      }
+    );
       const { filterValues, setFilterValues, filterFunction } = useFiltering(
         [],
         [titleFiltering, genreFiltering]

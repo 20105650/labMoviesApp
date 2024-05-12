@@ -104,6 +104,7 @@ const FavouriteMoviesPage: React.FC = () => {
         genreFilter={filterValues[1].value}
         ratingFilter={filterValues[2].value}
         popularityFilter={filterValues[3].value}
+        
       />
     </>
   );

@@ -46,9 +46,12 @@ const ActorDetails: React.FC<Actor> = (props) => {
     },
     gridListTile: {
       width: 200,
-      height: '100',
+      height: '30vh',
       overflow: "hidden",
     },
+    imageContainer: {
+      overflow: "hidden", // Hide the scrollbar
+  },
   };
 
   const {

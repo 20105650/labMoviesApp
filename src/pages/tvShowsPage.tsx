@@ -1,4 +1,4 @@
-import React from "react"; 
+import React, { useState }  from "react"; 
 import PageTemplate from '../components/templateTVShowsListPage';
 import { getTvShows} from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
@@ -25,7 +25,13 @@ import AddToFavouritesIcon from '../components/cardIcons/addToFavouritesTvShow';
   };
     //const TrendingMoviesPage: React.FC = () => {
     const TvShowsPage: React.FC = () => {
-        const { data, error, isLoading, isError } = useQuery<DiscoverTvShows, Error>("tvshows", getTvShows);
+        const [currentPage, setCurrentPage] = useState(1); console.log(setCurrentPage);
+        const { data, error, isLoading, isError } = useQuery<DiscoverTvShows, Error>(["tvshows", currentPage],
+        () => getTvShows(currentPage),
+        {
+          keepPreviousData: true, // Keep previous data while loading new data
+        }
+      );
         const { filterValues, setFilterValues, filterFunction } = useFiltering(
           [],
           [titleFiltering, genreFiltering,ratingFiltering]

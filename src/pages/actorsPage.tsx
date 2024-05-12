@@ -1,4 +1,4 @@
-import React from "react"; 
+import React, { useState }  from "react";
 import PageTemplate from '../components/templateActorsListPage';
 import { getActors} from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
@@ -19,7 +19,13 @@ import AddToFavouritesIcon from '../components/cardIcons/addToFavouritesActor'
   
     //const TrendingMoviesPage: React.FC = () => {
     const ActorsPage: React.FC = () => {
-        const { data, error, isLoading, isError } = useQuery<DiscoverActors, Error>("actors", getActors);
+        const [currentPage, setCurrentPage] = useState(1);console.log(setCurrentPage);
+        const { data, error, isLoading, isError } = useQuery<DiscoverActors, Error>(["actors", currentPage],
+        () => getActors(currentPage),
+        {
+          keepPreviousData: true, // Keep previous data while loading new data
+        }
+      );
         const { filterValues, setFilterValues, filterFunction } = useFiltering(
           [],
           [titleFiltering]

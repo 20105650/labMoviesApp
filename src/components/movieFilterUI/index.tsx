@@ -46,6 +46,8 @@ interface MovieFilterUIProps {
   genreFilter: string;
   ratingFilter: string;
   popularityFilter: string;
+  
+
 }
 
 

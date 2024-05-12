@@ -45,8 +45,9 @@ const popularityFiltering = {
 
 const HomePage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentSort, setCurrentSort] = useState("popularity.desc"); console.log(setCurrentSort);
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(["discover", currentPage],
-    () => getMovies(currentPage),
+    () => getMovies(currentPage,currentSort),
     {
       keepPreviousData: true, // Keep previous data while loading new data
     }

@@ -1,4 +1,4 @@
-import React from "react"; 
+import React, { useState }  from "react"; 
 import PageTemplate from '../components/templateMovieListPage';
 import { ListedMovie } from "../types/interfaces";
 import { getUpcomingMovies } from "../api/tmdb-api";
@@ -36,7 +36,13 @@ const popularityFiltering = {
 
   //const UpcomingMoviesPage: React.FC = () => {
   const UpcomingMoviesPage: React.FC = () => {
-      const { data, error, isLoading, isError } = useQuery<ListedMovie, Error>("upcoming", getUpcomingMovies);
+      const [currentPage, setCurrentPage] = useState(1); console.log(setCurrentPage);
+      const { data, error, isLoading, isError } = useQuery<ListedMovie, Error>(["upcoming", currentPage],
+      () => getUpcomingMovies(currentPage),
+      {
+        keepPreviousData: true, // Keep previous data while loading new data
+      }
+    );
       const { filterValues, setFilterValues, filterFunction } = useFiltering(
         [],
         [titleFiltering, genreFiltering, ratingFiltering, popularityFiltering]

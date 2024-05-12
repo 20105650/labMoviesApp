@@ -91,9 +91,22 @@ export interface BaseMovie {
     tagline: string;
     episode_run_time: number;
     vote_average: number;
+    number_of_episodes: number;
+    number_of_seasons: number;
     vote_count: number;
     favourite?: boolean;
+    seasons: Season[];
   }  
+  export interface Season {
+    air_date: string;
+    episode_count: number;
+    id: number;
+    name: string;
+    overview: string;
+    poster_path: string;
+    season_number: number;
+    vote_average: number;
+  }
   export interface TVShowList { 
     tvshows: TVShow[];
   } 
