@@ -1,7 +1,6 @@
 import React from "react";
 import ActorHeader from "../headerActor";
 import Grid from "@mui/material/Grid";
-import ImageList from "@mui/material/ImageList";
 import { Actor } from "../../types/interfaces";
 import img from '../../images/film-poster-placeholder.png';
 import CardMedia from "@mui/material/CardMedia";
