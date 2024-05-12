@@ -1,7 +1,7 @@
 export interface BaseMovie {
     title: string;
     budget: number;
-    homepage: string | undefined;
+    homepage: string;
     id: number;
     imdb_id: string;
     original_language: string;
@@ -148,6 +148,9 @@ export interface BaseMovie {
     popularity: number;
     vote_count: number;
     favourite?: boolean;
+    known_for_department: string;
+    imdb_id: string;
+    known_for: KnownFor[];
   }
 
   export interface ListedActor extends Actor {

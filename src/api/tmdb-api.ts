@@ -171,7 +171,7 @@ export const getMovies = () => {
       throw error
    });
   };
-  export const getKnownfor = (id: string) => {
+  export const getKnownfor = (id: string | number) => {
     return fetch(
       `https://api.themoviedb.org/3/person/${id}/combined_credits?api_key=${import.meta.env.VITE_TMDB_KEY}`
     ).then((response) => {
@@ -180,6 +180,7 @@ export const getMovies = () => {
       }
       return response.json();
     })
+    .then((json) => json.cast)
     .catch((error) => {
       throw error
    });

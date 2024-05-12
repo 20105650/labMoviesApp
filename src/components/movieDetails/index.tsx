@@ -10,6 +10,7 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from '../movieReviews'
+import { Link } from "react-router-dom";
 
 
 import Grid from "@mui/material/Grid";
@@ -28,15 +29,21 @@ const styles = {
         flexWrap: "wrap",
         listStyle: "none",
         padding: 1.5,
-        margin: 0,
+        margin: 2,
     },
     chipLabel: {
-        margin: 0.5,
+        margin: 1,
     },
     fab: { 
       position: "fixed",
       top: 50,
       right: 2,
+    },
+    chipValue: {
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "space-around",
+        margin:2
     },
     gridListRoot: {
         display: "flex",
@@ -48,6 +55,9 @@ const styles = {
         height: '30vh',
         overflow: "hidden",
     },
+    chipLink:{
+        color:'blue'
+    }
 };
 
 const MovieDetails: React.FC<MovieT> = (props) => {
@@ -94,19 +104,23 @@ const MovieDetails: React.FC<MovieT> = (props) => {
                 <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
                 <Chip
                     icon={<MonetizationIcon />}
-                    label={`${movie.revenue.toLocaleString()}`}
+                    label={`${movie.revenue.toLocaleString()}`} sx={styles.chipValue}
                 />
                 <Chip
                     icon={<StarRate />}
-                    label={`${movie.vote_average} (${movie.vote_count}`}
+                    label={`${movie.vote_average} (${movie.vote_count}`} sx={styles.chipValue} 
                 />
-                <Chip label={`Released: ${movie.release_date}`} />
+                <Chip label={`Released: ${movie.release_date}`} sx={styles.chipValue} />
+                
+                <Link to={movie.homepage}> <Chip label={`Visit Homepage`} sx={styles.chipLink}/> </Link>
             </Paper>
+
+            
 
             <Grid item >
                     <div>
                         <ImageList cols={4}>
-                            {images.map((image: MovieImage) => (
+                            {images.slice(0, 4).map((image: MovieImage) => (
                                 <ImageListItem
                                     key={image.file_path}
                                     sx={styles.gridListTile}
